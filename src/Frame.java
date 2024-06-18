@@ -8,8 +8,9 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 윈도우를 닫으면 프로그램을 종료하도록 설정
 
         createMenuBar(); // 메뉴 생성, 프레임에 삽입
-        //ContentPane(); // 컨텐트 팬 생성, 프레임에 삽입
+        ContentPane(); // 컨텐트 팬 생성, 프레임에 삽입
         WelcomeUser(); // GridLayoutEx 생성, 프레임에 삽입
+        CheckBox(); // CheckBoxEx 생성, 프레임에 삽입
 
         setSize(1000,800); // 프레임 크기
         setVisible(true); // 프레임 출력
@@ -44,11 +45,7 @@ public class Frame extends JFrame {
     private void ContentPane() {
         Container contentPane = getContentPane(); // 컨텐트 팬을 알아낸다.
         contentPane.setBackground(Color.ORANGE); // 컨텐트팬의 배경색을 오렌지색으로 설정
-        contentPane.setLayout(new FlowLayout()); // 컨텐트팬에 FlowLayout 배치관리자 달기
 
-        contentPane.add(new JButton("OK")); // OK 버튼 달기
-        contentPane.add(new JButton("Cancel")); // Cancel 버튼 달기
-        contentPane.add(new JButton("Ignore")); // Ignore 버튼 달기
     }
 
 
@@ -111,6 +108,29 @@ public class Frame extends JFrame {
         c.add(Cancel);
     }
 
+
+    // 체크박스
+    private void CheckBox() {
+        Container c = getContentPane();
+        //c.setLayout(new FlowLayout());
+
+        // 이미지 체크박스에 사용할 2개의 이미지 객체 생성
+        ImageIcon cherryIcon = new ImageIcon("images/cherry.jpg"); // 해제 상태 이미지
+        ImageIcon selectedCherryIcon = new ImageIcon("images/selectedCherry.jpg"); // 선택 상태 이미지
+
+        // 3개의 체크박스 생성
+        JCheckBox apple = new JCheckBox("사과");
+        JCheckBox pear = new JCheckBox("배");
+        JCheckBox cherry = new JCheckBox("체리", cherryIcon);
+
+        cherry.setBorderPainted(true); // 체크박스 외곽선이 보이도록 설정
+        cherry.setSelectedIcon(selectedCherryIcon); // 선택 상태 이미지 등록
+
+        // 컨텐트팬에 3개의 체크박스 부착
+        c.add(apple);
+        c.add(pear);
+        c.add(cherry);
+    }
 
     public static void main(String[] args) {
         Frame frame = new Frame();
