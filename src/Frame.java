@@ -9,10 +9,8 @@ public class Frame extends JFrame {
 
         createMenuBar(); // 메뉴 생성, 프레임에 삽입
         ContentPane(); // 컨텐트 팬 생성, 프레임에 삽입
-        WelcomeUser(); // GridLayoutEx 생성, 프레임에 삽입
-        CheckBox(); // CheckBoxEx 생성, 프레임에 삽입
 
-        setSize(1000,800); // 프레임 크기
+        setSize(1000, 800); // 프레임 크기
         setVisible(true); // 프레임 출력
     }
 
@@ -41,26 +39,30 @@ public class Frame extends JFrame {
     }
 
 
-    // 9-2: 컨텐트 팬에 FlowLayout 배치관리자를 달고, 버튼을 달아준다.
+    // 컨텐트 팬 설정 및 컴포넌트 추가
     private void ContentPane() {
         Container contentPane = getContentPane(); // 컨텐트 팬을 알아낸다.
-        contentPane.setBackground(Color.ORANGE); // 컨텐트팬의 배경색을 오렌지색으로 설정
+        contentPane.setBackground(Color.GRAY); // 컨텐트팬의 배경색을 오렌지색으로 설정
+        contentPane.setLayout(new FlowLayout()); // FlowLayout 배치관리자 설정
 
+        WelcomeUser(contentPane); // WelcomeUser 컴포넌트 추가
+        CheckBox(contentPane); // CheckBox 컴포넌트 추가
     }
 
 
-    private void WelcomeUser() {
-        Container c = getContentPane();
+    private void WelcomeUser(Container c) {
         c.setLayout(null); // 컨텐트팬의 배치관리자 제거
 
-        // JLabel 컴포넌트 생성하고 위치와 크기를 직접  지정한다.
+        // JLabel 컴포넌트 생성하고 위치와 크기를 직접 지정한다.
         JLabel welcome = new JLabel("Hello, Welcome User!");
+        welcome.setFont(new Font("Malgun Gothic", Font.PLAIN, 30)); // 폰트 설정
         welcome.setLocation(130, 50); // welcome를 (130,50) 위치로 지정
         welcome.setSize(200, 20); // welcome를 200x20 크기로 지정
         c.add(welcome); // welcome를 컨텐트팬에 부착
 
         // '이름' 라벨 필드
         JLabel Name = new JLabel("이름: ");
+        Name.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));    // 폰트 설정
         Name.setLocation(130, 150);
         Name.setSize(200, 20);
         c.add(Name);
@@ -73,6 +75,7 @@ public class Frame extends JFrame {
 
         // '나이' 라벨 필드
         JLabel Age = new JLabel("나이: ");
+        Age.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
         Age.setLocation(130, 200);
         Age.setSize(200, 20);
         c.add(Age);
@@ -85,6 +88,7 @@ public class Frame extends JFrame {
 
         // '전화번호' 라벨 필드
         JLabel Phone = new JLabel("전화번호: ");
+        Phone.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
         Phone.setLocation(130, 250);
         Phone.setSize(200, 20);
         c.add(Phone);
@@ -97,12 +101,14 @@ public class Frame extends JFrame {
 
         // '확인' 버튼
         JButton OK = new JButton("확인");
+        OK.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
         OK.setLocation(130, 300);
         OK.setSize(100, 40);
         c.add(OK);
 
         // '취소' 버튼
         JButton Cancel = new JButton("취소");
+        Cancel.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
         Cancel.setLocation(230, 300);
         Cancel.setSize(100, 40);
         c.add(Cancel);
@@ -110,10 +116,7 @@ public class Frame extends JFrame {
 
 
     // 체크박스
-    private void CheckBox() {
-        Container c = getContentPane();
-        //c.setLayout(new FlowLayout());
-
+    private void CheckBox(Container c) {
         // 이미지 체크박스에 사용할 2개의 이미지 객체 생성
         ImageIcon cherryIcon = new ImageIcon("images/cherry.jpg"); // 해제 상태 이미지
         ImageIcon selectedCherryIcon = new ImageIcon("images/selectedCherry.jpg"); // 선택 상태 이미지
@@ -126,9 +129,17 @@ public class Frame extends JFrame {
         cherry.setBorderPainted(true); // 체크박스 외곽선이 보이도록 설정
         cherry.setSelectedIcon(selectedCherryIcon); // 선택 상태 이미지 등록
 
-        // 컨텐트팬에 3개의 체크박스 부착
+        // 위치 설정 및 추가
+        apple.setLocation(130, 350);
+        apple.setSize(200, 40);
         c.add(apple);
+
+        pear.setLocation(130, 400);
+        pear.setSize(200, 40);
         c.add(pear);
+
+        cherry.setLocation(130, 450);
+        cherry.setSize(200, 40);
         c.add(cherry);
     }
 
