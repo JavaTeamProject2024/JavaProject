@@ -1,9 +1,33 @@
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.*;     // MyChangeListener 클래스를 사용하기 위해 import
 import java.awt.*;
 
+
+class TimerThread extends Thread {
+    private JLabel timerLabel; // 타이머 값이 출력되는 레이블
+
+    public TimerThread(JLabel timerLabel) {
+        this.timerLabel = timerLabel; // 타이머 카운트를 출력할 레이블
+    }
+    // 스레드 코드. run()이 종료하면 스레드 종료
+    @Override
+    public void run() {
+        int n=0; // 타이머 카운트 값
+        while(true) { // 무한 루프
+            timerLabel.setText(Integer.toString(n)); // 레이블에 카운트 값 출력
+            n++; // 카운트 증가
+            try {
+                Thread.sleep(1000); // 1초 동안 잠을 잔다.
+            }
+            catch(InterruptedException e) {
+                return; // 예외가 발생하면 스레드 종료
+            }
+        }
+    }
+}
+
+
 public class Frame extends JFrame {
-    private JLabel colorLabel;
     private JSlider happySlider;
 
     public Frame() {
@@ -49,6 +73,7 @@ public class Frame extends JFrame {
         WelcomeUser(contentPane); // WelcomeUser 컴포넌트 추가
         CheckBox(contentPane); // CheckBox 컴포넌트 추가
         SliderChange(contentPane); // SliderChange 컴포넌트 추가
+        ThreadTimer(contentPane); // ThreadTimer 컴포넌트 추가
     }
 
     private void WelcomeUser(Container c) {
@@ -211,18 +236,27 @@ public class Frame extends JFrame {
 
     }
 
-    // Change 리스너 구현
-    class MyChangeListener implements ChangeListener {
-        public void stateChanged(ChangeEvent e) { // 슬라이더의 값이 변경할 때 호출
-            // 슬라이더로부터 값을 얻어 colorLabel의 배경색 변경
-            int happy = happySlider.getValue(); // 값 얻기
-            if (happy < 35)     // 값에 따라 색 변경
-                colorLabel.setBackground(Color.RED);
-            else if (happy < 70)
-                colorLabel.setBackground(Color.YELLOW);
-            else
-                colorLabel.setBackground(Color.GREEN);
-        }
+    // 타이머 스레드 클래스
+    private void ThreadTimer(Container c) {
+        // '타이머' 라벨 필드
+        JLabel timerLabel = new JLabel("사용 시간(초)");
+        timerLabel.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
+        timerLabel.setLocation(850, 20);
+        timerLabel.setSize(200, 20);
+        c.add(timerLabel);
+
+        // 타이머 값을 출력할 레이블 생성
+        JLabel timer = new JLabel();
+        timer.setFont(new Font("Gothic", Font.ITALIC, 50));
+        timer.setBounds(880, 25, 100, 100); // 위치와 크기 설정
+
+        // 레이아웃 매니저 해제 및 타이머 레이블 추가
+        getContentPane().setLayout(null);
+        getContentPane().add(timer);
+
+        // 타이머 스레드 객체 생성. 타이머 값을 출력할 레이블을 생성자에 전달
+        TimerThread th = new TimerThread(timer);
+        th.start(); // 타이머 스레드의 실행을 시작하게 한다.
     }
 
     public static void main(String[] args) {
