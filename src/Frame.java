@@ -26,7 +26,6 @@ class TimerThread extends Thread {
     }
 }
 
-
 public class Frame extends JFrame {
     private JSlider happySlider;
 
@@ -180,20 +179,13 @@ public class Frame extends JFrame {
 
     // 체크박스
     private void CheckBox(Container c) {
-        // 이미지 체크박스에 사용할 2개의 이미지 객체 생성
-        ImageIcon cherryIcon = new ImageIcon("images/cherry.jpg"); // 해제 상태 이미지
-        ImageIcon selectedCherryIcon = new ImageIcon("images/selectedCherry.jpg"); // 선택 상태 이미지
-
-        // 3개의 체크박스 생성
-        JCheckBox apple = new JCheckBox("사과");
-        JCheckBox pear = new JCheckBox("배");
-        JCheckBox cherry = new JCheckBox("체리", cherryIcon);
-        apple.setFont(new Font("Malgun Gothic", Font.PLAIN, 20)); // 폰트 설정
-        pear.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
-        cherry.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
-
-        cherry.setBorderPainted(true); // 체크박스 외곽선이 보이도록 설정
-        cherry.setSelectedIcon(selectedCherryIcon); // 선택 상태 이미지 등록
+        Fruit[] fruits = {
+                new Fruit("사과", "images/apple.jpg", "images/selectedApple.jpg"),
+                new Fruit("배", "images/pear.jpg", "images/selectedPear.jpg"),
+                new Fruit("체리", "images/cherry.jpg", "images/selectedCherry.jpg"),
+                new Fruit("멜론", "images/melon.jpg", "images/selectedMelon.jpg"),
+                new Fruit("바나나", "images/banana.jpg", "images/selectedBanana.jpg")
+        };
 
         // 체크박스의 내용을 표시할 레이블 컴포넌트 생성
         JLabel CheckBoxContent = new JLabel("당신이 좋아하는 과일은 무엇인가요?");
@@ -202,18 +194,22 @@ public class Frame extends JFrame {
         CheckBoxContent.setSize(500, 40);
         c.add(CheckBoxContent);
 
-        // 위치 설정 및 추가
-        apple.setLocation(100, 400);
-        apple.setSize(200, 60);
-        c.add(apple);
+        int startX = 100;
+        int startY = 400;
+        int gapX = 250;
+        int gapY = 70;
 
-        pear.setLocation(350, 400);
-        pear.setSize(200, 60);
-        c.add(pear);
+        for (int i = 0; i < fruits.length; i++) {
+            Fruit fruit = fruits[i];
 
-        cherry.setLocation(600, 400);
-        cherry.setSize(200, 60);
-        c.add(cherry);
+            JCheckBox checkBox = new JCheckBox(fruit.getName(), fruit.getIcon());
+            checkBox.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
+            checkBox.setBorderPainted(true);
+            //checkBox.setSelectedIcon(fruit.getSelectedIcon());
+
+            checkBox.setBounds(startX + i%3 * gapX, startY + i/3 * gapY, 200, 60);
+            c.add(checkBox);
+        }
     }
 
     // 슬라이더
