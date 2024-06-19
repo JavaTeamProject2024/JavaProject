@@ -152,8 +152,9 @@ public class MainFrame extends Frame {
                 address = (String) addressCombo.getSelectedItem();
                 int happyValue = happySlider.getValue();
                 // 새로운 Frame을 생성하고 현재 Frame을 닫음
-                SubFrame resultFrame = new SubFrame(name, gender, age, phoneNum, address, favoriteFruit, favoriteHero, happyValue);
-                resultFrame.setVisible(true);
+                SubFrame subFrame = new SubFrame(name, gender, age, phoneNum, address, favoriteFruit, favoriteHero, happyValue);
+                subFrame.setVisible(true);
+
                 dispose(); // 현재 프레임을 닫음
             }
         });

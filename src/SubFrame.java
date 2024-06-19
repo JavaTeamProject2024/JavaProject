@@ -14,7 +14,7 @@ public class SubFrame extends Frame {
 
         ContentPane(name, gender, age, phone, address, fruit, hero, happyValue); // 컨텐트 팬 생성, 프레임에 삽입
         setSize(1000, 800); // 프레임 크기
-        setLocation(800, 0);
+        setLocation(0, 0);
         setVisible(true); // 프레임 출력
     }
 
@@ -22,20 +22,20 @@ public class SubFrame extends Frame {
     private void ContentPane(String name, String gender, String age, String phone, String address,
                              String fruit, String hero, int moodValue) {
         Container contentPane = getContentPane(); // 컨텐트 팬을 알아낸다.
-        contentPane.setBackground(Color.LIGHT_GRAY); // 컨텐트팬의 배경색을 회색으로 설정
+        contentPane.setBackground(Color.white); // 컨텐트팬의 배경색을 회색으로 설정
         contentPane.setLayout(new FlowLayout()); // FlowLayout 배치관리자 설정
 
         WelcomeUser(contentPane, name, gender, age, phone, address); // WelcomeUser 컴포넌트 추가
-        FruitCheckbox(contentPane, fruit); // FruitCheckBox 컴포넌트 추가
-        HeroCheckbox(contentPane, hero); // HeroCheckbox 컴포넌트 추가
-        SliderChange(contentPane, moodValue); // SliderChange 컴포넌트 추가
+        FruitCheckbox(contentPane, fruit, name); // FruitCheckBox 컴포넌트 추가
+        HeroCheckbox(contentPane, hero, name); // HeroCheckbox 컴포넌트 추가
+        SliderChange(contentPane, moodValue, name); // SliderChange 컴포넌트 추가
     }
 
     private void WelcomeUser(Container c, String name, String gen, String age, String phone, String address) {
         c.setLayout(null); // 컨텐트팬의 배치관리자 제거
 
         // JLabel 컴포넌트 생성하고 위치와 크기를 직접 지정한다.
-        JLabel welcome = new JLabel("사용자님이 입력하신 정보입니다.");
+        JLabel welcome = new JLabel(String.format("%s님이 입력하신 정보입니다.", name));
         welcome.setFont(new Font("Malgun Gothic", Font.PLAIN, 30)); // 폰트 설정
         welcome.setLocation(100, 50); // welcome를 (130,50) 위치로 지정
         welcome.setSize(500, 40); // welcome를 400x30 크기로 지정
@@ -49,8 +49,9 @@ public class SubFrame extends Frame {
         c.add(Name);
 
         // '이름' 입력 필드
-        JTextField NameInput = new JTextField(name);
-        NameInput.setLocation(200, 120);
+        JLabel NameInput = new JLabel(name);
+        NameInput.setFont(new Font("Malgun Gothic", Font.PLAIN, 20)); // 폰트 설정
+        NameInput.setLocation(200, 110);
         NameInput.setSize(200, 40);
         c.add(NameInput);
 
@@ -61,27 +62,19 @@ public class SubFrame extends Frame {
         gender.setSize(200, 40);
         c.add(gender);
 
-        ButtonGroup buttonGroup = new ButtonGroup(); // 버튼 그룹 객체 생성
-        JRadioButton male = new JRadioButton("남자"); // 라디오 버튼 생성
-        male.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
-        JRadioButton female = new JRadioButton("여자");
-        female.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
-        buttonGroup.add(male); // 버튼 그룹에 버튼 추가
-        buttonGroup.add(female);
-
-        male.setLocation(550, 120);
-        male.setSize(100, 40);
-        female.setLocation(650, 120);
-        female.setSize(100, 40);
-
-        c.add(male); // 컨텐트 팬에 버튼 추가
-        c.add(female);
-
         // 초기 선택 설정
         if (gen.equals("남자")) {
-            male.setSelected(true);
+            JLabel male = new JLabel("남자");
+            male.setFont(new Font("Malgun Gothic", Font.PLAIN, 20)); // 폰트 설정
+            male.setLocation(500, 120);
+            male.setSize(200, 40);
+            c.add(male);
         } else if (gen.equals("여자")) {
-            female.setSelected(true);
+            JLabel female = new JLabel("여자");
+            female.setFont(new Font("Malgun Gothic", Font.PLAIN, 20)); // 폰트 설정
+            female.setLocation(500, 120);
+            female.setSize(200, 40);
+            c.add(female);
         }
 
         // '나이' 라벨 필드
@@ -92,8 +85,9 @@ public class SubFrame extends Frame {
         c.add(Age);
 
         // '나이' 입력 필드
-        JTextField AgeInput = new JTextField(age);
-        AgeInput.setLocation(200, 170);
+        JLabel AgeInput = new JLabel(age);
+        AgeInput.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
+        AgeInput.setLocation(200, 160);
         AgeInput.setSize(200, 40);
         c.add(AgeInput);
 
@@ -105,8 +99,9 @@ public class SubFrame extends Frame {
         c.add(Phone);
 
         // '전화번호' 입력 필드
-        JTextField PhoneInput = new JTextField(phone);
-        PhoneInput.setLocation(550, 170);
+        JLabel PhoneInput = new JLabel(phone);
+        PhoneInput.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
+        PhoneInput.setLocation(550, 160);
         PhoneInput.setSize(200, 40);
         c.add(PhoneInput);
 
@@ -118,14 +113,15 @@ public class SubFrame extends Frame {
         c.add(Address);
 
         // '주소' 입력 필드
-        JTextField AddressInput = new JTextField(address);
-        AddressInput.setLocation(200, 220);
+        JLabel AddressInput = new JLabel(address);
+        AddressInput.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
+        AddressInput.setLocation(200, 210);
         AddressInput.setSize(200, 40);
         c.add(AddressInput);
     }
 
     // 체크박스 - 과일
-    private void FruitCheckbox(Container c, String selectedFruit) {
+    private void FruitCheckbox(Container c, String selectedFruit, String name) {
         Fruit[] fruits = {
                 new Fruit("사과", "images/apple.jpg"),
                 new Fruit("배", "images/pear.jpg"),
@@ -135,16 +131,11 @@ public class SubFrame extends Frame {
         };
 
         // 체크박스의 내용을 표시할 레이블 컴포넌트 생성
-        JLabel CheckBoxContent = new JLabel("당신이 좋아하는 과일입니다");
+        JLabel CheckBoxContent = new JLabel(String.format("%s님이 좋아하는 과일입니다", name));
         CheckBoxContent.setFont(new Font("Malgun Gothic", Font.BOLD, 15)); // 폰트 설정
         CheckBoxContent.setLocation(50, 270);
         CheckBoxContent.setSize(400, 40);
         c.add(CheckBoxContent);
-
-        int startX = 50;
-        int startY = 330;
-        int gapX = 130;
-        int gapY = 70;
 
         for (int i = 0; i < fruits.length; i++) {
             Fruit fruit = fruits[i];
@@ -152,32 +143,28 @@ public class SubFrame extends Frame {
             JCheckBox checkBox = new JCheckBox(fruit.getName(), fruit.getIcon());
             if (fruit.getName().equals(selectedFruit)) {
                 checkBox.setForeground(Color.RED);
-            }
-            checkBox.setFont(new Font("Malgun Gothic", Font.PLAIN, 14));
-            checkBox.setBorderPainted(true);
+                checkBox.setFont(new Font("Malgun Gothic", Font.PLAIN, 14));
+                checkBox.setBorderPainted(true);
 
-            checkBox.setBounds(startX + i%2 * gapX, startY + i/2 * gapY, 100, 60);
-            c.add(checkBox);
+                checkBox.setBounds(50, 330, 100, 60);
+                c.add(checkBox);
+            }
         }
     }
 
     // 체크박스 - 히어로
-    private void HeroCheckbox(Container c, String selectedHero) {
+    private void HeroCheckbox(Container c, String selectedHero, String name) {
         Hero[] heroes = {
                 new Hero("스파이더 맨", "images/spider_man.jpg"),
                 new Hero("원더 우먼", "images/wonder_woman.jpg"),
         };
 
         // 체크박스의 내용을 표시할 레이블 컴포넌트 생성
-        JLabel CheckBoxContent = new JLabel("당신이 더 선호하는 히어로입니다");
+        JLabel CheckBoxContent = new JLabel(String.format("%s님이 더 선호하는 히어로입니다", name));
         CheckBoxContent.setFont(new Font("Malgun Gothic", Font.BOLD, 15)); // 폰트 설정
-        CheckBoxContent.setLocation(500, 270);
+        CheckBoxContent.setLocation(400, 270);
         CheckBoxContent.setSize(400, 40);
         c.add(CheckBoxContent);
-
-        int startX = 400;
-        int startY = 330;
-        int gapX = 250;
 
         for (int i = 0; i < heroes.length; i++) {
             Hero hero = heroes[i];
@@ -185,31 +172,29 @@ public class SubFrame extends Frame {
             JCheckBox checkBox = new JCheckBox(hero.getName(), hero.getIcon());
             if (hero.getName().equals(selectedHero)) {
                 checkBox.setForeground(Color.RED);
-            }
-            checkBox.setFont(new Font("Malgun Gothic", Font.PLAIN, 14));
-            checkBox.setBorderPainted(true);
+                checkBox.setFont(new Font("Malgun Gothic", Font.PLAIN, 14));
+                checkBox.setBorderPainted(true);
 
-            checkBox.setBounds(startX + i%2 * gapX, startY, 240, 200);
-            c.add(checkBox);
+                checkBox.setBounds(400, 330, 240, 200);
+                c.add(checkBox);
+            }
         }
     }
 
     // 슬라이더
-    private void SliderChange(Container c, int moodValue) {
+    private void SliderChange(Container c, int moodValue, String name) {
         // 체크박스의 내용을 표시할 레이블 컴포넌트 생성
-        JLabel SliderContent = new JLabel("당신의 오늘 기분입니다");
+        JLabel SliderContent = new JLabel(String.format("%s님의 오늘 기분입니다", name));
         SliderContent.setFont(new Font("Malgun Gothic", Font.BOLD, 30)); // 폰트 설정
         SliderContent.setLocation(100, 650);
         SliderContent.setSize(500, 40);
         c.add(SliderContent);
 
-        JSlider happySlider = new JSlider(JSlider.HORIZONTAL, 0, 100, moodValue);  // 슬라이더 생성 (수평, 최소값, 최대값, 초기값)
-        happySlider.setPaintLabels(true);   // 눈금 레이블 표시
-        happySlider.setPaintTicks(true);    // 눈금 표시
-        happySlider.setPaintTrack(true);    // 트랙 표시
-        happySlider.setMajorTickSpacing(25);    // 주 눈금 간격
-        happySlider.setMinorTickSpacing(10);    // 보조 눈금 간격
-        happySlider.setBounds(500, 650, 300, 60);    // 슬라이더 위치, 크기 설정
-        c.add(happySlider);
+        String value = String.valueOf(moodValue);
+        JLabel SliderValue = new JLabel(value);
+        SliderValue.setFont(new Font("Malgun Gothic", Font.BOLD, 30)); // 폰트 설정
+        SliderValue.setLocation(500, 650);
+        SliderValue.setSize(50, 40);
+        c.add(SliderValue);
     }
 }
