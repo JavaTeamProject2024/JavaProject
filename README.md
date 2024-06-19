@@ -10,6 +10,8 @@
     - javax.swing.*
     - java.awt.*
     - TimerThread
+    - ActionEvent
+    - ActionListener
   - 오브젝트
     - Fruit 
 - [x] AWT or SWING 기반의 GUI 구성
