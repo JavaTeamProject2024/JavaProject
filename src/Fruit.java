@@ -1,26 +1,22 @@
 import javax.swing.*;
 
 // 과일 클래스 정의
-public class Fruit {
-    private String name;
-    private ImageIcon icon;
-    private ImageIcon selectedIcon;
+public class Fruit implements IconItem {
+    private String fruitName;
+    private ImageIcon fruitIcon;
 
-    public Fruit(String name, String iconPath, String selectedIconPath) {
-        this.name = name;
-        this.icon = new ImageIcon(iconPath);
-        this.selectedIcon = new ImageIcon(selectedIconPath);
+    public Fruit(String name, String iconPath) {
+        this.fruitName = name;
+        this.fruitIcon = new ImageIcon(iconPath);
     }
 
+    @Override
     public String getName() {
-        return name;
+        return fruitName;
     }
 
+    @Override
     public ImageIcon getIcon() {
-        return icon;
+        return fruitIcon;
     }
-
-//    public ImageIcon getSelectedIcon() {
-//        return selectedIcon;
-//    }
 }
