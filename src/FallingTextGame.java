@@ -177,16 +177,16 @@ public class FallingTextGame extends JPanel implements Runnable {
 
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Falling Text Game");         // 프레임 생성
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // 프레임 닫기
-            FallingTextGame fallingTextPanel = new FallingTextGame();   // 객체 생성
-            frame.getContentPane().add(fallingTextPanel);   // 패널 프레임에 연결
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            fallingTextPanel.requestFocusInWindow(); // 패널에 포커스 설정
-        });
+        // SwingUtilities.invokeLater(() -> {
+        //     JFrame frame = new JFrame("Falling Text Game");         // 프레임 생성
+        //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // 프레임 닫기
+        //     FallingTextGame fallingTextPanel = new FallingTextGame();   // 객체 생성
+        //     frame.getContentPane().add(fallingTextPanel);   // 패널 프레임에 연결
+        //     frame.pack();
+        //     frame.setLocationRelativeTo(null);
+        //     frame.setVisible(true);
+        //     fallingTextPanel.requestFocusInWindow(); // 패널에 포커스 설정
+        // });
     }
 }
 
